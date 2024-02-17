@@ -22,7 +22,12 @@ if (!$manifest) {
 $global = installed $app $true
 $status = app_status $app $global
 $install = install_info $app $status.version $global
-$status.installed = $bucket -and $install.bucket -eq $bucket
+
+# ! BUGFIX:
+# - scoop info will show versions only for apps not installed by specifying
+#   the version e.g. scoop install <app>@<version>
+# $status.installed = $bucket -and $install.bucket -eq $bucket
+
 $version_output = $manifest.version
 $manifest_file = if ($bucket) {
     manifest_path $app $bucket
